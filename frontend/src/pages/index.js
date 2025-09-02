@@ -7,8 +7,14 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post('http://localhost:5000/api/advice', { query });
-    setResponse(res.data.response);
+
+    try {
+      const res = await axios.post('http://127.0.0.1:5000/ask', { question: query });
+      setResponse(res.data.answer);
+    } catch (error) {
+      console.error("Error:", error);
+      setResponse("Something went wrong. Please try again.");
+    }
   };
 
   return (
